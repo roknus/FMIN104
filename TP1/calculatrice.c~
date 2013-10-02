@@ -1,0 +1,12 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#include"messages.h"
+
+int main(){
+  key_t key = ftok("./file",10);
+  int id = msgget(cle,IPC_CREATE|IPC_EXCL|0666);
+  if(id == -1){
+    printf("File de message deja existante");
+    exit(0);
+  }
