@@ -1,0 +1,36 @@
+##include <stdio.h>
+#include <pthread.h>
+#include <stdlib.h>
+#include <unistd.h>
+ 
+void *thread (void *arg) {
+ 
+    int *valeur = malloc(sizeof(int));
+    *valeur = 7;
+    sleep(5);
+     
+    pthread_exit(valeur);
+ 
+}
+ 
+int main() {
+ 
+    int *valeur = NULL;
+ 
+    pthread_t tid;
+ 
+    pthread_create(&tid, NULL, thread, NULL);
+ 
+    printf ("Tapez sur Entrée pour quitter\n");
+    scanf("%*c");
+ 
+    system("clear");
+    printf ("Attente de la terminaison du thread\n");
+    pthread_join(tid, (void *) &valeur);
+ 
+    printf ("Le thread se termine en renvoyant la valeur %d\n", *valeur);
+    scanf ("%*c");
+ 
+    return 0;
+ 
+}

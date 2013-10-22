@@ -1,0 +1,32 @@
+#include<pthread.h>
+#include<stdio.h>
+#include<stdlib.h>
+
+void *monThread(void *par)
+{
+  pthread_t moi = pthread_self();
+  int i = 0;
+  while(i < 100)
+    {
+      printf("Je suis le thread %d, mon proc est %d",moi,getpid());
+    }
+  pthread_exit();
+}
+
+int main()
+{
+  pthread_t idTh1;
+  pthread_t idTh2;
+
+  if(pthread_creater(&idTh1, NULL, monThread, NULL) != 0)
+    {
+      perror("Erreur creation thread");
+    }
+  if(pthread_creater(&idTh2, NULL, monThread, NULL) != 0)
+    {
+      perror("Erreur creation thread");
+    }
+  wait();
+
+  return EXIT_SUCCESS;
+}
